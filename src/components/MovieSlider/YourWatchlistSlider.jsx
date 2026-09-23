@@ -2,11 +2,9 @@ import { MovieSlider } from "./MovieSlider";
 import { useWatchlist } from "../../contexts/Watchlist/WatchlistContext";
 import { WatchlistIcon } from "../Icons/Icons";
 import styles from './Slider.module.css';
-import clsx from "clsx";
 
 export function YourWatchlistSlider() {
     const { watchlist } = useWatchlist();
-    console.log(watchlist)
 
     return (
         <div className={styles.sliderWrapper}>
