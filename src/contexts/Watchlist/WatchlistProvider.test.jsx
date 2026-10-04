@@ -1,6 +1,7 @@
 import { renderHook, act } from "@testing-library/react";
 import { WatchlistProvider } from "./WatchlistProvider";
 import { useWatchlist } from "./WatchlistContext";
+import { expect } from "vitest";
 
 const wrapper = ({ children }) => (
     <WatchlistProvider>
@@ -47,5 +48,14 @@ describe('WathclistProvider', () => {
 
         const savedMovies = JSON.parse(localStorage.getItem('watchlist'));
         expect(savedMovies).toEqual([]);
+    });
+
+    test('initialize watchlist with existing data from localStorage', () => {
+        localStorage.setItem('watchlist', JSON.stringify([testMovie]));
+
+        const { result } = renderHook(() => useWatchlist(), { wrapper });
+        
+        expect(result.current.watchlist).toHaveLength(1);
+        expect(result.current.isInWatchlist(testMovie.id)).toBe(true);
     });
 });
