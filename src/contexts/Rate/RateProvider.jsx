@@ -39,13 +39,14 @@ export function RateProvider({ children }) {
     }, [ratedMovies]);
 
     const value = useMemo(() => ({
+        ratedMovies,
         removeRate,
         getRating,
         rateMovie,
         clickedMovie,
         openRateModal,
         closeRateModal
-    }), [clickedMovie, openRateModal, closeRateModal, rateMovie, getRating, removeRate]);
+    }), [clickedMovie, openRateModal, closeRateModal, rateMovie, getRating, removeRate, ratedMovies]);
 
     return (
         <RateContext.Provider value={value}>

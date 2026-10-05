@@ -16,6 +16,10 @@ describe('WathclistProvider', () => {
         localStorage.clear();
     });
 
+    test('throws error when used out of Provider', () => {
+        expect(() => renderHook(() => useWatchlist())).toThrow();
+    })
+
     test('add movie to watchlist and update localstorage', () => {
         // renderHook kreira neku komponentu u koju ubacuje custom hook useWatchlist
         // a zatim to obavije u wrapper komponentu
@@ -28,6 +32,7 @@ describe('WathclistProvider', () => {
         act(() => result.current.toggleWatchlist(testMovie));
 
         expect(result.current.watchlist).toHaveLength(1);
+        expect(result.current.watchlist).toEqual([testMovie]);
         expect(result.current.isInWatchlist(testMovie.id)).toBe(true);
 
         const savedMovies = JSON.parse(localStorage.getItem('watchlist'));
