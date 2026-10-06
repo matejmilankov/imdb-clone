@@ -13,7 +13,7 @@ export function useMovieTrailer(movieId) {
                     headers: { Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}` }
                 });
                 const trailers = response.data.results.find(t => t.type === "Trailer" && t.site === "YouTube");
-                setTrailer(trailers)
+                setTrailer(trailers);
             } catch (err) {
                 console.error("Error, couldn't load movies.", err);
                 setError(err);
