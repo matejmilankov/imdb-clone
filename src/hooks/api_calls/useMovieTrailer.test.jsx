@@ -7,20 +7,23 @@ vi.mock('axios');
 
 describe('useMovieTrailer', () => {
     test('successful fetch and trailer exists', async () => {
+
+        // mockResoledValueOnce ocekuje isti tip podatak
+        // kao sto bi vratio pravi axios.get
         axios.get.mockResolvedValueOnce({
             data: {
                 results: [
                     { id: '1', key: 'wrong-type', site: 'YouTube', type: 'Teaser' },
                     { id: '2', key: 'wrong-site', site: 'Vimeo', type: 'Trailer' },
                     { id: '3', key: 'correct-one', site: 'YouTube', type: 'Trailer' },
-                    { id: '4', key: 'also-correct-but-ignored', site: 'YouTube', type: 'Trailer' },
+                    { id: '4', key: 'also-correct-but-ignored', site: 'YouTube', type: 'Trailer' }
                 ]
             }
         });
 
         const { result } = renderHook(() => useMovieTrailer('2'));
 
-        // posto useEffect unutar hook se desava tek nakon rendera (hook uradi return)
+        // posto useEffect unutar hook-a se desava tek nakon rendera (hook uradi return)
         // hook vraca inicijalne vrednosti stejtova u objektu
         // koje onda proverim iz ova dva expecta
         expect(result.current.isLoading).toBe(true);
@@ -35,8 +38,29 @@ describe('useMovieTrailer', () => {
         expect(result.current.trailer.key).toBe("correct-one");
     });
 
-    test('successful fetch and trailer doesnt exists', () => {
+    test('successful fetch and trailer doesnt exists', async () => {
+        axios.get.mockResolvedValueOnce({
+            data: {
+                results: [
+                    { id: '1', key: 'wrong-type', site: 'YouTube', type: 'Teaser' },
+                    { id: '2', key: 'wrong-site', site: 'Vimeo', type: 'Teaser' },
+                    { id: '3', key: 'correct-one', site: 'YouTube', type: 'Teaser' },
+                    { id: '4', key: 'also-correct-but-ignored', site: 'YouTube', type: 'Teaser' }
+                ]
+            }
+        });
 
+        const { result } = renderHook(() => useMovieTrailer('2'));
+
+        expect(result.current.isLoading).toBe(true);
+        expect(result.current.trailer).toBeNull();
+
+        await waitFor(() => {
+            expect(result.current.isLoading).toBe(false);
+        });
+
+        expect(result.current.trailer).toBeNull();
+        expect(result.current.error).toBeNull();
     });
 
     test('handles fetch error', async () => {

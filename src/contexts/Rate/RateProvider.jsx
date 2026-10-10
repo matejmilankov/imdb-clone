@@ -16,7 +16,7 @@ export function RateProvider({ children }) {
     
     const rateMovie = useCallback((movie, rating) => {
         setRatedMovies(prevMovies => {
-            const existingIndex = prevMovies.findIndex(entry => entry.movie.id === movie.id);
+            const existingIndex = prevMovies.findIndex(entry => entry.movie?.id === movie.id);
             if(existingIndex !== -1) {
                 const updatedMovies = [...prevMovies]
                 updatedMovies[existingIndex] = {movie: movie, grade: rating}
@@ -34,7 +34,7 @@ export function RateProvider({ children }) {
     }, []);
 
     const getRating = useCallback((movieId) => {
-        const requestedMovie =  ratedMovies.find(entry => entry.movie.id === movieId);
+        const requestedMovie =  ratedMovies.find(entry => entry.movie?.id === movieId);
         return requestedMovie ? requestedMovie.grade : 0;
     }, [ratedMovies]);
 
