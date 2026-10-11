@@ -6,13 +6,13 @@ import { TrailerModal } from "../TrailerModal/TrailerModal";
 export function ModalRoot() {
     const trailerId = useModal('trailer');
     const movie = useModal('rate');
-    // const details = useModal('details');
+    const details = useModal('details');
 
     return (
         <>
             {trailerId && <TrailerModal />}
             {movie && <RateModal />}
-            {/* {details && <MovieDetailsModal />} */}
+            {details && <MovieDetailsModal />}
         </>
     )
 }

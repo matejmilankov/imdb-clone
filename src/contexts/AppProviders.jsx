@@ -1,9 +1,7 @@
 import { WatchlistProvider } from '../contexts/Watchlist/WatchlistProvider';
-import { MovieDetailsProvider } from '../contexts/MovieDetails/MovieDetailsProvider';
 
 const providers = [
-    WatchlistProvider,
-    MovieDetailsProvider
+    WatchlistProvider
 ]
 
 export function AppProviders({ children }) {

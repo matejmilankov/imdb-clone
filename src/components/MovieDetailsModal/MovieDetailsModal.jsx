@@ -1,18 +1,20 @@
-import { useMovieDetailsModal } from "../../contexts/MovieDetails/MovieDetailsContext"
-import { useMovie } from "../../hooks/api_calls/useMovie"
-import { useModalTransition } from "../../hooks/animations/useModalTransition"
-import { CloseIcon } from "../Icons/Icons"
-import { MovieRating } from "../MovieRating/MovieRating"
-import { RatePicker } from "../RatePicker/RatePicker"
-import { MovieHeader } from "../MovieHeader/MovieHeader"
-import { Link } from "react-router"
-import { WatchlistButton } from "../WatchlistButton/WatchlistButton"
-import styles from './MovieDetailsModal.module.css'
+import { useMovie } from "../../hooks/api_calls/useMovie";
+import { useModalTransition } from "../../hooks/animations/useModalTransition";
+import { CloseIcon } from "../Icons/Icons";
+import { MovieRating } from "../MovieRating/MovieRating";
+import { RatePicker } from "../RatePicker/RatePicker";
+import { MovieHeader } from "../MovieHeader/MovieHeader";
+import { Link } from "react-router";
+import { WatchlistButton } from "../WatchlistButton/WatchlistButton";
+import { useModal, useModalActions } from "../../stores/Modal/modalStore";
+import styles from './MovieDetailsModal.module.css';
 
 export function MovieDetailsModal() {
-    const { clickedMovieDetails, closeMovieDetailsModal } = useMovieDetailsModal();
+    const clickedMovieDetails = useModal('details');
+    const { closeModal } = useModalActions();
+
     const { movieDetails, isLoading, error } = useMovie(clickedMovieDetails);
-    const { closeOverlay, blurOverlayRef } = useModalTransition(closeMovieDetailsModal);
+    const { closeOverlay, blurOverlayRef } = useModalTransition(closeModal);
 
     const bgImg = {
         backgroundImage: `url(https://image.tmdb.org/t/p/w200/${movieDetails?.poster_path})`,

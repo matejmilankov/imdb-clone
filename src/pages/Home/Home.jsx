@@ -3,19 +3,14 @@ import { ModalRoot } from "../../components/ModalRoot/ModalRoot";
 import { NowPlayingHeroSlider } from "../../components/HeroSlider/NowPlayingHeroSlider";
 import { TopPicksMovieSlider } from "../../components/MovieSlider/TopPicksMovieSlider";
 import { SectionHeader } from "../../components/SectionHeader/SectionHeader";
-import { useTrailerModal } from "../../contexts/Trailer/TrailerContext";
-import { MovieDetailsModal } from "../../components/MovieDetailsModal/MovieDetailsModal";
-import { useMovieDetailsModal } from "../../contexts/MovieDetails/MovieDetailsContext";
 import { YourWatchlistSlider } from "../../components/MovieSlider/YourWatchlistSlider";
 import styles from './Home.module.css'
 
 export function Home() {
-    const { clickedMovieDetails } = useMovieDetailsModal();
 
     return (
         <>
             <ModalRoot />
-            {clickedMovieDetails && <MovieDetailsModal />}
             
             <div className={styles.heroLayout}>
                 <Header />

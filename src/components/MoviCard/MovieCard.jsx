@@ -3,13 +3,11 @@ import { WatchlistButton } from '../WatchlistButton/WatchlistButton';
 import { MovieRating } from '../MovieRating/MovieRating';
 import { RatePicker } from '../RatePicker/RatePicker';
 import { SmallPlayIcon, InfoIcon } from '../Icons/Icons';
-import { useMovieDetailsModal } from '../../contexts/MovieDetails/MovieDetailsContext';
 import { useModalActions } from '../../stores/Modal/modalStore';
 import clsx from 'clsx';
 
 export function MovieCard({ movie, variant }) {
     const { openModal } = useModalActions();
-    const { openMovieDetailsModal } = useMovieDetailsModal();
 
     return (
         <div className={styles.moviCardWrapper}>
@@ -47,7 +45,7 @@ export function MovieCard({ movie, variant }) {
                             <span>Trailer</span>
                         </button>
                         {variant !== "reduced" && (
-                            <button onClick={() => openMovieDetailsModal(movie.id)}>
+                            <button onClick={() => openModal('details', movie.id)}>
                                 <InfoIcon />
                             </button>
                         )}
