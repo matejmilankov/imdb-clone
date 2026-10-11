@@ -1,13 +1,17 @@
 import { create } from "zustand";
 
 const useModalStore = create((set) => ({
-    modal: null,
+    modals: [],
     actions: {
-        openModal: (type, data) => set({ modal: { type, data } }),
-        closeModal: () => set(() => ({ modal: null }))
+        openModal: (type, data) => set(state => ({
+            modals: [...state.modals, { type, data}]
+        })),
+        closeModal: () => set(state => ({
+            modals: state.modals.slice(0, -1)
+        }))
     }
 }));
 
 export const useModal = (type) => 
-    useModalStore(state => state.modal?.type === type ? state.modal.data : null);
+    useModalStore(state => state.modals.find(m => m.type === type)?.data ?? null);
 export const useModalActions = () => useModalStore(state => state.actions);

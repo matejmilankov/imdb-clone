@@ -4,21 +4,17 @@ import { NowPlayingHeroSlider } from "../../components/HeroSlider/NowPlayingHero
 import { TopPicksMovieSlider } from "../../components/MovieSlider/TopPicksMovieSlider";
 import { SectionHeader } from "../../components/SectionHeader/SectionHeader";
 import { useTrailerModal } from "../../contexts/Trailer/TrailerContext";
-import { TrailerModal } from "../../components/TrailerModal/TrailerModal";
-import { RateModal } from "../../components/RateModal/RateModal";
 import { MovieDetailsModal } from "../../components/MovieDetailsModal/MovieDetailsModal";
 import { useMovieDetailsModal } from "../../contexts/MovieDetails/MovieDetailsContext";
 import { YourWatchlistSlider } from "../../components/MovieSlider/YourWatchlistSlider";
 import styles from './Home.module.css'
 
 export function Home() {
-    const { clickedTrailerId } = useTrailerModal();
     const { clickedMovieDetails } = useMovieDetailsModal();
 
     return (
         <>
             <ModalRoot />
-            {clickedTrailerId && <TrailerModal />}
             {clickedMovieDetails && <MovieDetailsModal />}
             
             <div className={styles.heroLayout}>
