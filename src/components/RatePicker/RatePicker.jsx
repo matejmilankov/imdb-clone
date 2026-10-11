@@ -1,16 +1,17 @@
 import { StarIcon } from "../Icons/Icons";
-import { useRateModal } from "../../contexts/Rate/RateContext";
+import { useRating } from "../../stores/Rate/rateStore";
+import { useModalActions } from "../../stores/Modal/modalStore";
 import styles from './RatePicker.module.css';
 
 export function RatePicker({ variant, iconWidth, iconHeight, movie }) {
-    const { openRateModal, getRating } = useRateModal();
+    const { openModal } = useModalActions();
 
-    const currentRating = getRating(movie.id);
+    const currentRating = useRating(movie.id);
 
     return (
         <button
             className={styles.ratePickerWrapper}
-            onClick={() => openRateModal(movie)}
+            onClick={() => openModal('rate', movie)}
         >
             <StarIcon
                 width={iconWidth}
